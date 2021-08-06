@@ -1,7 +1,9 @@
 const canvasWrapper = document.querySelector('.canvas');
+const menu = document.querySelector('.menu');
+let selectedColor = '#000000';
+let randomColorModOn = false;
 
 const createCanvas = function createCanvas(squaresInLine) {
-    // let canvas = document.createElement('div');
     let canvas = [];
     const corrections = 10; /* из-за потери точности пришлось добавить корректировку в 10px 
                                 и flex-shrink для square */
@@ -28,18 +30,37 @@ const createSquare = function createSquare(height, width) {
 }
 
 const colorize = function colorizeSquare (target, color) {
-    target.style.backgroundColor = `rgb(${color})`;
+    target.style.backgroundColor = color;
 } 
 
 const randomizeColor = function randomizeColor () {
-    let rgb = [0,0,0];
-    return rgb.map(() =>  Math.floor(Math.random() * 255) + 1).join(',');
+    // let rgb = [0,0,0];
+    // return rgb.map(() =>  Math.floor(Math.random() * 255) + 1).join(',');
+    return `#${Math.floor(Math.random()*16777215).toString(16)}`;
+}
+
+const changeColor = function changeSelectedColor(color) {
+    selectedColor = color;
 }
 
 canvasWrapper.addEventListener('mouseover',(e) => {
     if (!e.target.classList.contains('canvas__square')) return;
-    colorize(e.target, randomizeColor());
+    if (randomColorModOn) {
+        colorize(e.target, randomizeColor());
+    }else{
+        colorize(e.target, selectedColor);
     }
-)
+})
 
 canvasWrapper.append(...createCanvas(90));
+
+menu.querySelector('[name="pick"]').addEventListener('change', (e) => {
+    randomColorModOn = false;
+    changeColor(e.target.value);
+    }    
+);
+menu.querySelector('[name="random"]').addEventListener('click', () => randomColorModOn = true);
+menu.querySelector('[name="clear"]').addEventListener('click', () => {
+    const squares = [...canvasWrapper.querySelectorAll('.canvas__square')];
+    squares.map((node) => node.style.backgroundColor = '');
+})
