@@ -34,13 +34,15 @@ const colorize = function colorizeSquare (target, color) {
 } 
 
 const randomizeColor = function randomizeColor () {
-    // let rgb = [0,0,0];
-    // return rgb.map(() =>  Math.floor(Math.random() * 255) + 1).join(',');
     return `#${Math.floor(Math.random()*16777215).toString(16)}`;
 }
 
 const changeColor = function changeSelectedColor(color) {
     selectedColor = color;
+}
+
+const displayPixelsRatio = function displayPixelsRatio (value) {
+    menu.querySelector('#menu__label-for-pixels').innerHTML = `${value} x ${value}`;
 }
 
 canvasWrapper.addEventListener('mouseover',(e) => {
@@ -52,8 +54,6 @@ canvasWrapper.addEventListener('mouseover',(e) => {
     }
 })
 
-canvasWrapper.append(...createCanvas(90));
-
 menu.querySelector('[name="pick"]').addEventListener('change', (e) => {
     randomColorModOn = false;
     changeColor(e.target.value);
@@ -64,3 +64,11 @@ menu.querySelector('[name="clear"]').addEventListener('click', () => {
     const squares = [...canvasWrapper.querySelectorAll('.canvas__square')];
     squares.map((node) => node.style.backgroundColor = '');
 })
+menu.querySelector('[name="pixels"]').addEventListener('input', (e) => {
+    let rows = canvasWrapper.querySelectorAll('.canvas__row');
+    [...rows].map((node) => node.remove());
+    displayPixelsRatio(e.target.value)
+    canvasWrapper.append(...createCanvas(e.target.value));
+});
+
+canvasWrapper.append(...createCanvas(menu.querySelector('[name="pixels"]').value));
