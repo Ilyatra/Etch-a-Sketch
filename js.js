@@ -2,6 +2,8 @@ const canvasWrapper = document.querySelector('.canvas');
 const menu = document.querySelector('.menu');
 let selectedColor = '#000000';
 let randomColorModOn = false;
+let disableBrush = false;
+let enableEraser = false;
 
 const createCanvas = function createCanvas(squaresInLine) {
     let canvas = [];
@@ -41,12 +43,21 @@ const changeColor = function changeSelectedColor(color) {
     selectedColor = color;
 }
 
-const displayPixelsRatio = function displayPixelsRatio (value) {
+const displayPixelsRatio = function displayPixelsRatio(value) {
     menu.querySelector('#menu__label-for-pixels').innerHTML = `${value} x ${value}`;
+}
+
+const erase = function erase(target) {
+    target.style.backgroundColor = '';
 }
 
 canvasWrapper.addEventListener('mouseover',(e) => {
     if (!e.target.classList.contains('canvas__square')) return;
+    if (disableBrush) return;
+    if (enableEraser) {
+        erase(e.target);
+        return;
+    }
     if (randomColorModOn) {
         colorize(e.target, randomizeColor());
     }else{
@@ -71,6 +82,16 @@ menu.querySelector('[name="pixels"]').addEventListener('input', (e) => {
     [...rows].map((node) => node.remove());
     displayPixelsRatio(e.target.value)
     canvasWrapper.append(...createCanvas(e.target.value));
-});
+})
+document.addEventListener('keydown', (e) => {
+    console.log(e.key)
+    console.log(e.target)
+    if (e.key == 'Control') disableBrush = true;
+    if (e.key == 'Shift') enableEraser = true;
+})
+document.addEventListener('keyup', (e) => {
+    if (e.key == 'Control') disableBrush = false;
+    if (e.key == 'Shift') enableEraser = false;
+})
 
 canvasWrapper.append(...createCanvas(menu.querySelector('[name="pixels"]').value));
