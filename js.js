@@ -57,9 +57,11 @@ canvasWrapper.addEventListener('mouseover',(e) => {
 menu.querySelector('[name="pick"]').addEventListener('change', (e) => {
     randomColorModOn = false;
     changeColor(e.target.value);
-    }    
-);
-menu.querySelector('[name="random"]').addEventListener('click', () => randomColorModOn = true);
+})
+menu.querySelector('[name="random"]').addEventListener('click', (e) => {
+    randomColorModOn = !randomColorModOn;
+    e.target.classList.toggle('button-switcher-active');
+})
 menu.querySelector('[name="clear"]').addEventListener('click', () => {
     const squares = [...canvasWrapper.querySelectorAll('.canvas__square')];
     squares.map((node) => node.style.backgroundColor = '');

@@ -1,18 +1,31 @@
 .body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+}
+
+.body__title {
+    font-size: 54px;
+    padding: 100px;
+    margin: 0;
+}
+
+.body__menu {
+    margin: 0 40px;
 }
 
 .canvas { 
     display: flex;
     flex-direction: column;
-    border: 1px solid red;
+    border: 1px solid black;
     min-height: 600px;
     width: 600px;
-    /* padding: 0;
-    margin: 0; */
+}
+
+.canvas-wrapper {
+    display: flex;
+    flex-direction: row;
 }
 
 .canvas__row {
@@ -22,5 +35,43 @@
 }
 
 .canvas__square {
-    /* background-color: rgb(167, 119, 119); */
+
+}
+
+.menu { 
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 162px;
+    height: 610px;
+}
+
+.menu__description {
+    text-align: left;
+    font-size: 16px;
+    padding-bottom: 100px;
+}   
+
+.menu__button {
+    margin: 15px 0;
+    width: 162px;
+    height: 30px;
+    border: 1px solid #767B7F;
+    border-radius: 5px;
+}
+
+.menu__button:hover {
+    background-color: #969DA8;
+}
+
+.color-picker {
+    padding: 2px;
+}
+
+.color-picker:hover {
+    background-color: inherit;
+}
+
+.button-switcher-active {
+    background-color: #969DA8;
 }

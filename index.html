@@ -7,18 +7,18 @@
    <script src="js.js" defer></script>
 </head>
 <body class="body">
-    <div class="canvas">
+    <h1 class="body__title">Etch-A-Sketch</h1>
+    <div class="canvas-wrapper">
+        <div class="canvas"></div>
+        <div class="body__menu menu">
+            <span class="menu__description">Hold ctrl to disable the brush and shift to use the eraser</span>
+            <button class="menu__button" name="random">Random Color</button>
+            <input type="color" class="menu__button color-picker" name="pick" ></input>
+            <button class="menu__button" name="clear">Clear</button>
+            <label id="menu__label-for-pixels" for="pixels">90 x 90</label>
+            <input id="pixels" type="range" min="10" max="200" step="10" name="pixels" ></input>
+        </div>
     </div>
-    <div class="menu">
-        <button class="menu__button" name="random">Random Color</button>
-        <label>
-            Pick Color
-            <input type="color" class="menu__button" name="pick" value="#000000"></input>
-        </label>
-        <button class="menu__button" name="clear">Clear</button>
-        <label id="menu__label-for-pixels" for="pixels">90 x 90
-        </label>
-        <input id="pixels" type="range" min="10" max="200" step="10" name="pixels" value="90"></input>
-    </div>
+
 </body>
 </html>
